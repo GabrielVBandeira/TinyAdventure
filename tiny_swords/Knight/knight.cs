@@ -4,15 +4,28 @@ using System;
 public partial class knight : CharacterBody2D
 {	
 
-	public override void _PhysicsProcess(double delta)
+	private float _moveSpeed = 256.0f;
+
+	[Export]
+	public float MoveSpeed
 	{
-		Vector2 direction = get_direction();
-		GD.Print(direction.Length());
+		get { return _moveSpeed; }
+		set { _moveSpeed = value; }
 	}
 
-	public Vector2 get_direction() {
-		float x = Input.GetAxis("ui_left", "ui_right");
-		float y = Input.GetAxis("ui_up", "ui_down");
+
+	public override void _PhysicsProcess(double delta)
+	{
+		Vector2 direction = GetDirection();
+		
+		Vector2 velocity = direction * MoveSpeed;
+		Velocity = velocity;
+		MoveAndSlide();
+	}
+
+	public Vector2 GetDirection() {
+		float x = Input.GetAxis("move_left", "move_right");
+		float y = Input.GetAxis("move_up", "move_down");
 		Vector2 direction = new Vector2(x, y);
 		return direction.Normalized();
 	}
