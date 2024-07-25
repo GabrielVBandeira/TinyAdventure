@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckmigthxyc3e0"]
+
+[ext_resource type="Script" path="res://tiny_swords/Knight/knight.cs" id="1_sk2rp"]
+[ext_resource type="Texture2D" uid="uid://caldci7lvceu1" path="res://assets/Factions/Knights/Troops/Warrior/Purple/Warrior_Purple.png" id="2_ggrbh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_osbyr"]
+size = Vector2(39, 17)
+
+[node name="Knight" type="CharacterBody2D"]
+script = ExtResource("1_sk2rp")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 31.5)
+shape = SubResource("RectangleShape2D_osbyr")
+
+[node name="Texture" type="Sprite2D" parent="."]
+texture = ExtResource("2_ggrbh")
+hframes = 6
+vframes = 8

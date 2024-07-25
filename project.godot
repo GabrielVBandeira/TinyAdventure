@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Studies"
+run/main_scene="res://tiny_swords/Knight/knight.tscn"
 config/features=PackedStringArray("4.2", "C#", "Mobile")
 config/icon="res://icon.svg"
 
