@@ -7,12 +7,19 @@ public partial class Knight : CharacterBody2D
 	private AnimationPlayer _animation;
 	private Sprite2D _texture;
 	private CollisionShape2D _collisionAttack;
+	private CollisionShape2D _collisionBody;
 	private AnimationPlayer _auxAnimation;
 	private float _moveSpeed = 256.0f;
 	private bool _canAttack = true;
 	private bool _canDie = false;
 	private int _damage = 1;
 	private int _health = 5;
+
+	public bool CanDie
+	{
+		get { return _canDie; }
+		set { _canDie = value; }
+	}
 
 	[Export]
 	public int Health
@@ -42,6 +49,7 @@ public partial class Knight : CharacterBody2D
 		_animation = GetNode<AnimationPlayer>("Animation");
 		_texture = GetNode<Sprite2D>("Texture");
 		_collisionAttack = GetNode<CollisionShape2D>("AttackArea/Collision");
+		_collisionBody = GetNode<CollisionShape2D>("Collision");
 		_auxAnimation = GetNode<AnimationPlayer>("AuxAnimationPlayer");
 	}
 
@@ -73,7 +81,7 @@ public partial class Knight : CharacterBody2D
 			_texture.FlipH = false;
 
 			var position = _collisionAttack.Position;
-			position.X = 29;
+			position.X = 58;
 			_collisionAttack.Position = position;
 		}
 		else if (Velocity.X < 0)
@@ -81,7 +89,7 @@ public partial class Knight : CharacterBody2D
 			_texture.FlipH = true;
 
 			var position = _collisionAttack.Position;
-			position.X = -29;
+			position.X = -58;
 			_collisionAttack.Position = position;
 		}
 
@@ -112,16 +120,20 @@ public partial class Knight : CharacterBody2D
 		return direction.Normalized();
 	}
 
-	private void UpdateHealth(int damage)
+	public void UpdateHealth(int damage)
 	{
 		_health -= damage;
 		if (_health <= 0)
 		{
 			_canDie = true;
+			_collisionAttack.SetDeferred("disabled", true);
+			_collisionBody.SetDeferred("disabled", true);
 			_animation.Play("death");
-			_collisionAttack.Disabled = true;
 		}
-		_auxAnimation.Play("hit");
+		else
+		{
+			_auxAnimation.Play("hit");
+		}
 	}
 
 	private void OnAnimationFinished(StringName anim_name)
@@ -141,11 +153,11 @@ public partial class Knight : CharacterBody2D
 
 	private void OnAttackAreaBodyEntered(Node2D body)
 	{
-		if (body is Knight knight)
+		if (body is Goblin goblin)
 		{
-			knight.UpdateHealth(_damage);
+			goblin.UpdateHealth(_damage);
+			GD.Print("Goblin Health: " + goblin.Health);
 		}
-		GD.Print("vida" + _health);
 	}
 
 }
