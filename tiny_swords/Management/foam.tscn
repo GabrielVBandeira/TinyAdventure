@@ -67,6 +67,8 @@ animations = [{
 }]
 
 [node name="foam" type="AnimatedSprite2D"]
+z_index = -1
 sprite_frames = SubResource("SpriteFrames_ipytq")
 animation = &"Idle"
-frame_progress = 0.216954
+autoplay = "Idle"
+offset = Vector2(32, 32)

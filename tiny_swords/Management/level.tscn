@@ -154,6 +154,7 @@ sources/0 = SubResource("TileSetAtlasSource_5328i")
 script = ExtResource("1_5pw3m")
 
 [node name="Water" type="TileMap" parent="Terrain"]
+z_index = -2
 tile_set = SubResource("TileSet_mogsd")
 format = 2
 
