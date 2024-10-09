@@ -15,6 +15,10 @@ run/main_scene="res://tiny_swords/Knight/knight.tscn"
 config/features=PackedStringArray("4.2", "C#", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+TransitionScreen="*res://tiny_swords/Management/transition_screen.tscn"
+
 [dotnet]
 
 project/assembly_name="Studies"

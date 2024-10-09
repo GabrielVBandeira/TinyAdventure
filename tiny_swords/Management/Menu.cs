@@ -3,6 +3,7 @@ using System;
 
 public partial class Menu : Control
 {
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -23,7 +24,8 @@ public partial class Menu : Control
 		switch (buttonName)
 		{
 			case "NewGame":
-				GetTree().ChangeSceneToFile("res://tiny_swords/Management/level.tscn");
+				TransitionScreen.Instance.ScenePath = "res://tiny_swords/Management/level.tscn";
+				TransitionScreen.Instance.FadeIn();
 				break;
 
 			case "Quit":
